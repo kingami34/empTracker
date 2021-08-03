@@ -1,3 +1,4 @@
+
 const inquirer = require('inquirer');
 
 const mysql = require('mysql2');
@@ -19,16 +20,67 @@ const db = mysql.createConnection(
 function choiceDepartment(){
     inquirer.prompt([
      {
-        type: "input",
+        type: "list",
         name: "department",
         message: "What would you like to do",
-        choices: ['View Departments', 'View Roles', 'View Employees', 'Add Department']
+        choices: 
+        ['View Departments',
+         'View Roles',
+          'View Employees', 
+          'Add Department',
+          'Add Role',
+          'Add Employee',
+        'Update Employee Role',
+        ]
      },  
 
     ])
     .then((answers) => {
         console.info('Answer:', answers.department);
-        choiceDepartment()
+        // choiceDepartment()
     })
+    
 }
+choiceDepartment();
 
+
+getRoles = () => {
+    connection.query("SELECT id, title FROM role", (err, res) => {
+      if (err) throw err;
+      roles = res;
+      // console.table(roles);
+    })
+  };
+  
+  getDepartments = () => {
+    connection.query("SELECT id, name FROM department", (err, res) => {
+      if (err) throw err;
+      departments = res;
+      // console.log(departments);
+    })
+  };
+  
+  getManagers = () => {
+    connection.query("SELECT id, first_name, last_name, CONCAT_WS(' ', first_name, last_name) AS managers FROM employee", (err, res) => {
+      if (err) throw err;
+      managers = res;
+      // console.table(managers);
+    })
+  };
+  
+  getEmployees = () => {
+    connection.query("SELECT id, CONCAT_WS(' ', first_name, last_name) AS Employee_Name FROM employee", (err, res) => {
+      if (err) throw err;
+      employees = res;
+      // console.table(employees);
+    })
+  };
+
+function addDepartment(){
+    inquirer.prompt([
+        {
+
+        }
+
+    ])
+}
