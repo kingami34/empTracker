@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/kingami34/empTracker/issues"
   },
-  "homepage": "https://github.com/kingami34/empTracker#readme"
+  "homepage": "https://github.com/kingami34/empTracker#readme",
+  "directories": {
+    "lib": "lib"
+  }
 }
