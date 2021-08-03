@@ -47,7 +47,7 @@ choiceDepartment();
 getRoles = () => {
     connection.query("SELECT id, title FROM role", (err, res) => {
       if (err) throw err;
-      roles = res;
+      role = res;
       // console.table(roles);
     })
   };
@@ -55,7 +55,7 @@ getRoles = () => {
   getDepartments = () => {
     connection.query("SELECT id, name FROM department", (err, res) => {
       if (err) throw err;
-      departments = res;
+      department = res;
       // console.log(departments);
     })
   };
@@ -63,7 +63,7 @@ getRoles = () => {
   getManagers = () => {
     connection.query("SELECT id, first_name, last_name, CONCAT_WS(' ', first_name, last_name) AS managers FROM employee", (err, res) => {
       if (err) throw err;
-      managers = res;
+      manager = res;
       // console.table(managers);
     })
   };
@@ -76,11 +76,3 @@ getRoles = () => {
     })
   };
 
-function addDepartment(){
-    inquirer.prompt([
-        {
-
-        }
-
-    ])
-}
