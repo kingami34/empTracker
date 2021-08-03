@@ -5,7 +5,7 @@ VALUES ("Sales"),
     ("Legal"),
     ("Finance"),
     ("Artist");
-INSERT INTO role (title, salary, department_id)
+INSERT INTO rolee (title, salary, department_id)
 VALUES ("CEO", "100000", "7"),
     ("Software Developer", "70000", "2"),
     ("Engineer", "60000", "3"),
@@ -31,7 +31,7 @@ SELECT e.id,
     CONCAT_WS(" ", m.first_name, m.last_name) AS manager
 FROM employee e
     LEFT JOIN employee m ON m.id = e.manager_id
-    INNER JOIN role r ON e.role_id = r.id
+    INNER JOIN rolee r ON e.role_id = r.id
     INNER JOIN department d ON r.department_id = d.id
 ORDER BY e.id ASC;
 -- Query for view all roles --
@@ -39,7 +39,7 @@ SELECT r.id,
     r.title,
     r.salary,
     d.name as Department_Name
-FROM role AS r
+FROM rolee AS r
     INNER JOIN department AS d ON r.department_id = d.id;
 --Query for getting employees --
 SELECT id,
