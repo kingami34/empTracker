@@ -44,35 +44,37 @@ function choiceDepartment(){
 choiceDepartment();
 
 
-getRoles = () => {
+getRole = () => {
     connection.query("SELECT id, title FROM role", (err, res) => {
       if (err) throw err;
       role = res;
-      // console.table(roles);
+      console.table(role);
     })
   };
   
-  getDepartments = () => {
+  getDepartment = () => {
     connection.query("SELECT id, name FROM department", (err, res) => {
       if (err) throw err;
       department = res;
-      // console.log(departments);
+      console.log(department);
     })
   };
   
-  getManagers = () => {
+  getManager = () => {
     connection.query("SELECT id, first_name, last_name, CONCAT_WS(' ', first_name, last_name) AS managers FROM employee", (err, res) => {
       if (err) throw err;
       manager = res;
-      // console.table(managers);
+      console.table(manager);
     })
   };
   
-  getEmployees = () => {
+  getEmployee = () => {
     connection.query("SELECT id, CONCAT_WS(' ', first_name, last_name) AS Employee_Name FROM employee", (err, res) => {
       if (err) throw err;
       employees = res;
-      // console.table(employees);
+      console.table(employee);
     })
   };
 
+
+ 
