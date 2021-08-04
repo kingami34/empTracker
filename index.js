@@ -1,4 +1,3 @@
-
 const inquirer = require('inquirer');
 
 const mysql = require('mysql2');
@@ -75,6 +74,4 @@ db.query('SELECT * FROM rolee', function(err,results){
 })
 choiceDepartment();
 
-// db.query('SELECT * FROM rolee', function(err,results){
-//     console.log(results);
-// })
+/

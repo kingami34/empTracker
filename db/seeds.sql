@@ -1,11 +1,13 @@
-INSERT INTO department (name)
+USE employee_db
+
+INSERT INTO departments (name)
 VALUES ("Sales"),
     ("Engineering"),
-    ("Human Resources"),
+    ("HumUn Resources"),
     ("Legal"),
     ("Finance"),
     ("Artist");
-INSERT INTO rolee (title, salary, department_id)
+INSERT INTO roles (title, salary, department_id)
 VALUES ("CEO", "100000", "7"),
     ("Software Developer", "70000", "2"),
     ("Engineer", "60000", "3"),
