@@ -46,11 +46,11 @@ SELECT id,
     CONCAT_WS(' ', first_name, last_name) AS Employee_Name
 FROM employee -- Query for updating --
 UPDATE employee
-SET role_id = 3
-WHERE id = 8;
+SET role_id = 5
+WHERE id = 10;
 UPDATE employee
 SET ?
 WHERE ?;
 -- Query for Delete --
 DELETE FROM department
-WHERE id = 13;
+WHERE id = 15;
