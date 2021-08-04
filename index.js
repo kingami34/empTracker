@@ -14,8 +14,10 @@ const connection = mysql.createConnection(
     password: 'Mastery$28',
     database: 'employee'
   },
-  console.log(`Connected to the employee database.`)
+
+  console.log('Start the employee game.')
 );
+
 
 function choiceDepartment(){
     inquirer.prompt([
@@ -31,12 +33,48 @@ function choiceDepartment(){
           'Add Role',
           'Add Employee',
         'Update Employee Role',
+        'Stop'
         ]
-     },  
+     }, 
+    
     ])
-  };
-    choiceDepartment();
+  
+//   choiceDepartment()
 
+    .then(function({department}){
+        switch (department) {
+            case "View Departments":
+            viewDept();
+            break;
+            case "View Roles":
+                viewRole();
+                break;
+                case "View Employees":
+                viewEmployee();
+                break;
+                case "Add Department":
+                addDept();
+                break;
+                case "Add Role":
+                addRole();
+                break;
+                case "Add Employee":
+                addEmployee();
+                break;
+                case "Update Employee Role":
+                updateRole();
+                break;
+                case "Stop":
+                connection.stop();
+                break;
+        }
+    })
+}
+db.query('SELECT * FROM rolee', function(err,results){
+    console.log(results);
+})
+choiceDepartment();
 
-
-
+// db.query('SELECT * FROM rolee', function(err,results){
+//     console.log(results);
+// })
