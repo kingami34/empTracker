@@ -11,7 +11,7 @@ const db = mysql.createConnection(
     user: 'root',
     // MySQL password
     password: 'Mastery$28',
-    database: 'employee'
+    database: 'employee_db'
   },
 
   console.log('Start the employee game.')
@@ -74,4 +74,4 @@ db.query('SELECT * FROM rolee', function(err,results){
 })
 choiceDepartment();
 
-/
+
