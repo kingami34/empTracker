@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 
 
 // Connect to database
-const db = mysql.createConnection(
+const connection = mysql.createConnection(
   {
     host: 'localhost',
     // MySQL username,
@@ -69,7 +69,7 @@ function choiceDepartment(){
         }
     })
 }
-function viewDepartments() {
+function viewDept() {
   var query = "SELECT * FROM department";
     connection.query(query, function(err, res) {
         console.log(`DEPARTMENTS:`)
@@ -81,7 +81,7 @@ function viewDepartments() {
   };
 
 function viewRoles() {
-  var query = "SELECT * FROM role";
+  var query = "SELECT * FROM roles";
       connection.query(query, function(err, res) {
           console.log(`ROLES:`)
       res.forEach(role => {
@@ -102,7 +102,7 @@ function viewEmployees() {
       });
   };
 
-function addDepartment() {
+function addDept() {
   inquirer
       .prompt({
           name: "department",
@@ -114,7 +114,7 @@ function addDepartment() {
       connection.query(query, answer.department, function(err, res) {
           console.log(`You have added this department: ${(answer.department).toUpperCase()}.`)
       })
-      viewDepartments();
+      viewDept();
       })
 }
 
@@ -277,13 +277,13 @@ function updateRole() {
       console.log(answer);
       const name = answer.employeeName;
      
-      connection.query("SELECT * FROM role", function(err, res) {
+      connection.query("SELECT * FROM roles", function(err, res) {
               inquirer
               .prompt ([
                   {
-                      name: "role",
+                      name: "roles",
                       type: "list",
-                      message: "What is their new role?",
+                      message: "What is their new roles?",
                       choices: function() {
                           rolesArray = [];
                           res.forEach(res => {
@@ -311,8 +311,7 @@ function updateRole() {
                       })
                    })
               })
-          
-          //})
+
      })
 })
 
