@@ -33,7 +33,7 @@ SELECT e.id,
     CONCAT_WS(" ", m.first_name, m.last_name) AS manager
 FROM employee e
     LEFT JOIN employee m ON m.id = e.manager_id
-    INNER JOIN rolee r ON e.role_id = r.id
+    INNER JOIN roles r ON e.role_id = r.id
     INNER JOIN department d ON r.department_id = d.id
 ORDER BY e.id ASC;
 -- Query for view all roles --
@@ -41,14 +41,14 @@ SELECT r.id,
     r.title,
     r.salary,
     d.name as Department_Name
-FROM rolee AS r
+FROM roles AS r
     INNER JOIN department AS d ON r.department_id = d.id;
 --Query for getting employees --
 SELECT id,
     CONCAT_WS(' ', first_name, last_name) AS Employee_Name
 FROM employee -- Query for updating --
 UPDATE employee
-SET role_id = 5
+SET roles_id = 5
 WHERE id = 10;
 UPDATE employee
 SET ?
