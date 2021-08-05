@@ -72,7 +72,7 @@ function choiceDepartment(){
 function viewDept() {
   var query = "SELECT * FROM department";
     connection.query(query, function(err, res) {
-        console.log(`DEPARTMENTS:`)
+        console.log(`DEPARTMENT:`)
       res.forEach(department => {
           console.log(`ID: ${department.id} | Name: ${department.name}`)
       })
@@ -94,7 +94,7 @@ function viewRole() {
 function viewEmployee() {
   var query = "SELECT * FROM employee";
       connection.query(query, function(err, res) {
-          console.log(`EMPLOYEES:`)
+          console.log(`EMPLOYEE:`)
       res.forEach(employee => {
           console.log(`ID: ${employee.id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.role_id} | Manager ID: ${employee.manager_id}`);
       })
