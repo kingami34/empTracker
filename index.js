@@ -80,7 +80,7 @@ function viewDept() {
       });
   };
 
-function viewRoles() {
+function viewRole() {
   var query = "SELECT * FROM roles";
       connection.query(query, function(err, res) {
           console.log(`ROLES:`)
@@ -91,7 +91,7 @@ function viewRoles() {
       });
   };
 
-function viewEmployees() {
+function viewEmployee() {
   var query = "SELECT * FROM employee";
       connection.query(query, function(err, res) {
           console.log(`EMPLOYEES:`)
@@ -307,7 +307,7 @@ function updateRole() {
                        function(err, res, fields) {
                        console.log(`You have updated ${name}'s role to ${role}.`)
                       })
-                      viewEmployees();
+                      viewEmployee();
                       })
                    })
               })
