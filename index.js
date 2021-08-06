@@ -133,7 +133,7 @@ function addRole() {
           message: "What is the salary of the new role?",
         },
         {
-          name: "departmentName",
+          name: "department_Name",
           type: "list",
           message: "Which department does this role fall under?",
           choices: function() {
@@ -149,11 +149,11 @@ function addRole() {
         ]) 
  
       .then(function(answer) {
-      const department = answer.departmentName;
+      const department = answer.department_Name;
       connection.query('SELECT * FROM DEPARTMENT', function(err, res) {
       
           if (err) throw (err);
-       let filteredDept = res.filter(function(res) {
+        var filteredDept = res.filter(function(res) {
           return res.name == department;
       }
       )
@@ -172,34 +172,34 @@ function addRole() {
 }
 
 async function addEmployee() {
-  connection.query('SELECT * FROM roles', function(err, result) {
+  connection.query('SELECT * FROM ROLES', function(err, result) {
       if (err) throw (err);
-  inquirer
-      .prompt([{
-          name: "firstName",
-          type: "input",
-          message: "What is the employee's first name?",
-        }, 
-        {
-          name: "lastName",
-          type: "input",
-          message: "What is the employee's last name?",
-        },
-        {
-          name: "roleName",
-          type: "list",
-          message: "What role does the employee have?",
-          choices: function() {
-           rolesArray = [];
-              result.forEach(result => {
-                  rolesArray.push(
-                      result.title
-                  );
-              })
-              return rolesArray;
-            }
-        }
-        ]) 
+//   inquirer
+//       .prompt([{
+//           name: "firstName",
+//           type: "input",
+//           message: "What is the employee's first name?",
+//         }, 
+//         {
+//           name: "lastName",
+//           type: "input",
+//           message: "What is the employee's last name?",
+//         },
+//         {
+//           name: "roleName",
+//           type: "list",
+//           message: "What role does the employee have?",
+//           choices: function() {
+//            rolesArray = [];
+//               result.forEach(result => {
+//                   rolesArray.push(
+//                       result.title
+//                   );
+//               })
+//               return rolesArray;
+//             }
+//         }
+//         ]) 
         updateRole()
       
         .then(function(answer) {
