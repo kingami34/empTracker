@@ -76,7 +76,7 @@ function viewDept() {
       res.forEach(department => {
           console.log(`ID: ${department.id} | Name: ${department.name}`)
       })
-      viewDept();
+      viewRole();
       });
   };
 
@@ -87,7 +87,7 @@ function viewRole() {
       res.forEach(role => {
           console.log(`ID: ${roles.id} | Title: ${roles.title} | Salary: ${roles.salary} | Department ID: ${roles.department_id}`);
       })
-      viewRole();
+      viewEmployee();
       });
   };
 
@@ -98,7 +98,7 @@ function viewEmployee() {
       res.forEach(employee => {
           console.log(`ID: ${employee.id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.roles_id} | Manager ID: ${employee.manager_id}`);
       })
-      viewEmployee();
+      addDept();
       });
   };
 
@@ -114,7 +114,7 @@ function addDept() {
       connection.query(query, answer.department, function(err, res) {
           console.log(`You have added this department: ${(answer.department).toUpperCase()}.`)
       })
-      addDept();
+      addRole();
       })
 }
 
@@ -165,7 +165,7 @@ function addRole() {
           function(err, res, fields) {
           console.log(`You have added this role: ${(values[0]).toUpperCase()}.`)
       })
-          viewRoles()
+          addEmployee()
           })
       })
   })
@@ -200,7 +200,7 @@ async function addEmployee() {
             }
         }
         ]) 
-        addEmployee()
+        updateRole()
       
         .then(function(answer) {
       console.log(answer);
@@ -308,7 +308,7 @@ function updateRole() {
                        function(err, res, fields) {
                        console.log(`You have updated ${name}'s role to ${roles}.`)
                       })
-                      updateRole();
+                      stop();
                       })
                    })
               })
