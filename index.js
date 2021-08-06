@@ -103,8 +103,7 @@ function viewEmployee() {
   };
 
 function addDept() {
-  inquirer
-      .prompt({
+  inquirer.prompt({
           name: "department",
           type: "input",
           message: "What is the name of the new department?",
@@ -121,8 +120,7 @@ function addDept() {
 function addRole() {
   connection.query('SELECT * FROM department', function(err, res) {
       if (err) throw (err);
-  inquirer
-      .prompt([{
+  inquirer.prompt([{
           name: "title",
           type: "input",
           message: "What is the title of the new role?",
@@ -174,32 +172,33 @@ function addRole() {
 async function addEmployee() {
   connection.query('SELECT * FROM ROLES', function(err, result) {
       if (err) throw (err);
-//   inquirer
-//       .prompt([{
-//           name: "firstName",
-//           type: "input",
-//           message: "What is the employee's first name?",
-//         }, 
-//         {
-//           name: "lastName",
-//           type: "input",
-//           message: "What is the employee's last name?",
-//         },
-//         {
-//           name: "roleName",
-//           type: "list",
-//           message: "What role does the employee have?",
-//           choices: function() {
-//            rolesArray = [];
-//               result.forEach(result => {
-//                   rolesArray.push(
-//                       result.title
-//                   );
-//               })
-//               return rolesArray;
-//             }
-//         }
-//         ]) 
+
+  inquirer.prompt([{
+          name: "firstName",
+          type: "input",
+          message: "What is the employee's first name?",
+        }, 
+        {
+          name: "lastName",
+          type: "input",
+          message: "What is the employee's last name?",
+        },
+        {
+          name: "roleName",
+          type: "list",
+          message: "What role does the employee have?",
+          choices: function() {
+           rolesArray = [];
+              result.forEach(result => {
+                  rolesArray.push(
+                      result.title
+                  );
+              })
+              return rolesArray;
+            }
+        }
+        ]) 
+        
         updateRole()
       
         .then(function(answer) {
@@ -251,7 +250,7 @@ async function addEmployee() {
           })
       })
 })
-}
+
 
 function updateRole() {
   connection.query('SELECT * FROM employee', function(err, result) {
@@ -279,8 +278,7 @@ function updateRole() {
       const name = answer.employeeName;
      
       connection.query("SELECT * FROM roles", function(err, res) {
-              inquirer
-              .prompt ([
+              inquirer.prompt ([
                   {
                       name: "roles",
                       type: "list",
@@ -317,10 +315,5 @@ function updateRole() {
 })
 
 }
-
-
- 
-
 choiceDepartment()
-
-
+}    
