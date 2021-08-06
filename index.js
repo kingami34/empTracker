@@ -148,7 +148,7 @@ function addRole() {
  
       .then(function(answer) {
       const department = answer.department_Name;
-      connection.query('SELECT * FROM DEPARTMENT', function(err, res) {
+    //   connection.query('SELECT * FROM DEPARTMENT', function(err, res) {
       
           if (err) throw (err);
         var filteredDept = res.filter(function(res) {
@@ -165,13 +165,13 @@ function addRole() {
       })
           addEmployee()
           })
-      })
+    //   })
   })
 }
 
 async function addEmployee() {
-  connection.query('SELECT * FROM ROLES', function(err, result) {
-      if (err) throw (err);
+//   connection.query('SELECT * FROM ROLES', function(err, result) {
+//       if (err) throw (err);
 
   inquirer.prompt([{
           name: "firstName",
@@ -189,19 +189,15 @@ async function addEmployee() {
           message: "What role does the employee have?",
           choices: function() {
            rolesArray = [];
-              result.forEach(result => {
+              res.forEach(res => {
                   rolesArray.push(
-                      result.title
+                      res.title
                   );
               })
               return rolesArray;
             }
         }
-        ]) 
-        
-        updateRole()
-      
-        .then(function(answer) {
+        ]).then(function(answer) {
       console.log(answer);
       const role = answer.rolesName;
       connection.query('SELECT * FROM role', function(err, res) {
@@ -248,9 +244,9 @@ async function addEmployee() {
                    })
               })
           })
-      })
+    //   })
 })
-
+updateRole()
 
 function updateRole() {
   connection.query('SELECT * FROM employee', function(err, result) {
@@ -315,5 +311,6 @@ function updateRole() {
 })
 
 }
-choiceDepartment()
-}    
+
+} 
+choiceDepartment()   
