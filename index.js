@@ -76,7 +76,7 @@ function viewDept() {
       res.forEach(department => {
           console.log(`ID: ${department.id} | Name: ${department.name}`)
       })
-      start();
+      viewDept();
       });
   };
 
@@ -85,9 +85,9 @@ function viewRole() {
       connection.query(query, function(err, res) {
           console.log(`ROLES:`)
       res.forEach(role => {
-          console.log(`ID: ${role.id} | Title: ${role.title} | Salary: ${role.salary} | Department ID: ${role.department_id}`);
+          console.log(`ID: ${roles.id} | Title: ${roles.title} | Salary: ${roles.salary} | Department ID: ${roles.department_id}`);
       })
-      start();
+      viewRole();
       });
   };
 
@@ -96,9 +96,9 @@ function viewEmployee() {
       connection.query(query, function(err, res) {
           console.log(`EMPLOYEE:`)
       res.forEach(employee => {
-          console.log(`ID: ${employee.id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.role_id} | Manager ID: ${employee.manager_id}`);
+          console.log(`ID: ${employee.id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.roles_id} | Manager ID: ${employee.manager_id}`);
       })
-      start();
+      viewEmployee();
       });
   };
 
@@ -114,7 +114,7 @@ function addDept() {
       connection.query(query, answer.department, function(err, res) {
           console.log(`You have added this department: ${(answer.department).toUpperCase()}.`)
       })
-      viewDept();
+      addDept();
       })
 }
 
@@ -157,9 +157,9 @@ function addRole() {
           return res.name == department;
       }
       )
-      let id = filteredDept[0].id;
-     let query = "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
-     let values = [answer.title, parseInt(answer.salary), id]
+      const id = filteredDept[0].id;
+     var query = "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
+     var values = [answer.title, parseInt(answer.salary), id]
      console.log(values);
       connection.query(query, values,
           function(err, res, fields) {
@@ -200,16 +200,17 @@ async function addEmployee() {
             }
         }
         ]) 
-
-      .then(function(answer) {
+        addEmployee()
+      
+        .then(function(answer) {
       console.log(answer);
-      const role = answer.roleName;
+      const role = answer.rolesName;
       connection.query('SELECT * FROM role', function(err, res) {
           if (err) throw (err);
-          let filteredRole = res.filter(function(res) {
+          let filteredRoles = res.filter(function(res) {
               return res.title == role;
           })
-      let roleId = filteredRole[0].id;
+      const roleId = filteredRoles[0].id;
       connection.query("SELECT * FROM employee", function(err, res) {
               inquirer
               .prompt ([
@@ -234,16 +235,16 @@ async function addEmployee() {
               let filteredManager = res.filter(function(res) {
               return res.last_name == manager;
           })
-          let managerId = filteredManager[0].id;
+          const managerId = filteredManager[0].id;
                   console.log(managerAnswer);
-                  let query = "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
-                  let values = [answer.firstName, answer.lastName, roleId, managerId]
+                  var query = "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
+                  const values = [answer.firstName, answer.lastName, rolesId, managerId]
                   console.log(values);
                    connection.query(query, values,
                        function(err, res, fields) {
                        console.log(`You have added this employee: ${(values[0]).toUpperCase()}.`)
                       })
-                      viewEmployees();
+                      // viewEmployees();
                       })
                    })
               })
@@ -297,17 +298,17 @@ function updateRole() {
               ]).then(function(rolesAnswer) {
                   const roles = rolesAnswer.role;
                   console.log(rolesAnswer.role);
-              connection.query('SELECT * FROM role WHERE title = ?', [role], function(err, res) {
+              connection.query('SELECT * FROM role WHERE title = ?', [roles], function(err, res) {
               if (err) throw (err);
-                  let roleId = res[0].id;
-                  let query = "UPDATE employee SET role_id ? WHERE last_name ?";
-                  let values = [roleId, name]
+                  var rolesId = res[0].id;
+                  var query = "UPDATE employee SET role_id ? WHERE last_name ?";
+                  var values = [roleId, name]
                   console.log(values);
                    connection.query(query, values,
                        function(err, res, fields) {
-                       console.log(`You have updated ${name}'s role to ${role}.`)
+                       console.log(`You have updated ${name}'s role to ${roles}.`)
                       })
-                      viewEmployee();
+                      updateRole();
                       })
                    })
               })
