@@ -3,7 +3,7 @@ USE employee_db
 INSERT INTO departments (name)
 VALUES ("Sales"),
     ("Engineering"),
-    ("HumUn Resources"),
+    ("Human Resources"),
     ("Legal"),
     ("Finance"),
     ("Artist");
