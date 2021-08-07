@@ -68,7 +68,7 @@ function choiceDepartment() {
     });
 }
 function viewDept() {
-  var query = "SELECT * FROM department:";
+  var query = "SELECT * FROM department";
   connection.query(query, function (err, res) {
     console.log(`DEPARTMENT:`);
     res.forEach((department) => {
