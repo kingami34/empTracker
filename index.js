@@ -72,9 +72,9 @@ function viewDept() {
   connection.query(query, function (err, res) {
     console.log(`DEPARTMENT:`);
     res.forEach((department) => {
-      console.log(`ID: ${department.id} | Name: ${department.name}`);
+      console.log(`ID: ${department.department_id} | Name: ${department.name}`);
     });
-    viewRole();
+    viewRoles();
   });
 }
 
@@ -97,7 +97,7 @@ function viewEmployee() {
     console.log(`EMPLOYEE:`);
     res.forEach((employee) => {
       console.log(
-        `ID: ${employee.id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.roles_id} | Manager ID: ${employee.manager_id}`
+        `ID: ${employee.employee_id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.roles_id} | Manager ID: ${employee.manager_id}`
       );
     });
     addDept();
@@ -113,7 +113,7 @@ function addDept() {
     })
     .then(function (answer) {
       var query = "INSERT INTO department (name) VALUES ( ? )";
-      connection.query(query, answer.department, function (err, res) {
+      connection.query(query, answer.department_id, function (err, res) {
         console.log(
           `You have added this department: ${answer.department.toUpperCase()}.`
         );
@@ -235,7 +235,7 @@ async function addEmployee() {
                   let filteredManager = res.filter(function (res) {
                     return res.last_name == manager;
                   });
-                  const managerId = filteredManager[0].id;
+                  const managerId = filteredManager[0].manager_id;
                   console.log(managerAnswer);
                   var query =
                     "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
