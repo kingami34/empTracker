@@ -175,88 +175,89 @@ function addRole() {
 }
 
 async function addEmployee() {
-    connection.query('SELECT * FROM roles', function(err, res) {
-        if (err) throw (err);
+  connection.query("SELECT * FROM roles", function (err, res) {
+    if (err) throw err;
 
-  inquirer.prompt([
-      {
-        name: "firstName",
-        type: "input",
-        message: "What is the employee's first name?",
-      },
-      {
-        name: "lastName",
-        type: "input",
-        message: "What is the employee's last name?",
-      },
-      {
-        name: "roleName",
-        type: "list",
-        message: "What role does the employee have?",
-        choices: function () {
-          rolesArray = [];
-          res.forEach((res) => {
-            rolesArray.push(res.title);
-          });
-          return rolesArray;
+    inquirer
+      .prompt([
+        {
+          name: "firstName",
+          type: "input",
+          message: "What is the employee's first name?",
         },
-      },
-    ])
-    .then(function (answer) {
-      console.log(answer);
-      const role = answer.rolesName;
-      connection.query("SELECT * FROM roles", function (err, res) {
-        if (err) throw err;
-        let filteredRoles = res.filter(function (res) {
-          return res.title == roles;
-        });
-        const roleId = filteredRoles[0].roles_id;
-        connection.query("SELECT * FROM employee", function (err, res) {
-          inquirer
-            .prompt([
-              {
-                name: "manager",
-                type: "list",
-                message: "Who is your manager?",
-                choices: function () {
-                  managersArray = [];
-                  res.forEach((res) => {
-                    managersArray.push(res.last_name);
-                  });
-                  return managersArray;
-                },
-              },
-            ])
-            .then(function (managerAnswer) {
-              const manager = managerAnswer.manager;
-              connection.query("SELECT * FROM employee", function (err, res) {
-                if (err) throw err;
-                let filteredManager = res.filter(function (res) {
-                  return res.last_name == manager;
-                });
-                const managerId = filteredManager[0].id;
-                console.log(managerAnswer);
-                var query =
-                  "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
-                const values = [
-                  answer.firstName,
-                  answer.lastName,
-                  roles_id,
-                  manager_id,
-                ];
-                console.log(values);
-                connection.query(query, values, function (err, res, fields) {
-                  console.log(
-                    `You have added this employee: ${values[0].toUpperCase()}.`
-                  );
-                });
-                // viewEmployees();
-              });
+        {
+          name: "lastName",
+          type: "input",
+          message: "What is the employee's last name?",
+        },
+        {
+          name: "roleName",
+          type: "list",
+          message: "What role does the employee have?",
+          choices: function () {
+            rolesArray = [];
+            res.forEach((res) => {
+              rolesArray.push(res.title);
             });
+            return rolesArray;
+          },
+        },
+      ])
+      .then(function (answer) {
+        console.log(answer);
+        const role = answer.rolesName;
+        connection.query("SELECT * FROM roles", function (err, res) {
+          if (err) throw err;
+          let filteredRoles = res.filter(function (res) {
+            return res.title == roles;
+          });
+          const roleId = filteredRoles[0].roles_id;
+          connection.query("SELECT * FROM employee", function (err, res) {
+            inquirer
+              .prompt([
+                {
+                  name: "manager",
+                  type: "list",
+                  message: "Who is your manager?",
+                  choices: function () {
+                    managersArray = [];
+                    res.forEach((res) => {
+                      managersArray.push(res.last_name);
+                    });
+                    return managersArray;
+                  },
+                },
+              ])
+              .then(function (managerAnswer) {
+                const manager = managerAnswer.manager;
+                connection.query("SELECT * FROM employee", function (err, res) {
+                  if (err) throw err;
+                  let filteredManager = res.filter(function (res) {
+                    return res.last_name == manager;
+                  });
+                  const managerId = filteredManager[0].id;
+                  console.log(managerAnswer);
+                  var query =
+                    "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
+                  const values = [
+                    answer.firstName,
+                    answer.lastName,
+                    roles_id,
+                    manager_id,
+                  ];
+                  console.log(values);
+                  connection.query(query, values, function (err, res, fields) {
+                    console.log(
+                      `You have added this employee: ${values[0].toUpperCase()}.`
+                    );
+                  });
+                  // viewEmployees();
+                });
+              });
+          });
         });
       });
-        })
-    });
+  });
   updateRole();
 
   function updateRole() {
