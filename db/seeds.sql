@@ -16,13 +16,13 @@ VALUES ("CEO", "100000", "7"),
     ("Artist", "70000", "6"),
     ("Salesperson", "40000", "1");
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Bobby", "Knight", "1"),
-    ("Bill", "Jones", "2", "1"),
-    ("Mike", "Jones", "3", "1"),
-    ("Charlie", "Brown", "4", "3"),
-    ("David", "Banner", "5", "1"),
-    ("Scottie", "Pippen", "6", "1"),
-    ("Alvin", "Karama", "1", "1");
+VALUES ("Bobby", "Knight", 1),
+    ("Bill", "Jones", 2, 1),
+    ("Mike", "Jones", 3, 1),
+    ("Charlie", "Brown", 4, 3),
+    ("David", "Banner", 5, 1),
+    ("Scottie", "Pippen", 6, 1),
+    ("Alvin", "Karama", 1, 1);
 -- Query for view all --
 SELECT e.id,
     e.first_name,
