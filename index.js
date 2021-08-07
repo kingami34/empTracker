@@ -36,7 +36,7 @@ function choiceDepartment() {
       },
     ])
 
-    //   choiceDepartment()
+      // choiceDepartment()
 
     .then(function ({ department }) {
       switch (department) {
@@ -66,15 +66,16 @@ function choiceDepartment() {
           break;
       }
     });
+    // viewDept()
 }
 function viewDept() {
   var query = "SELECT * FROM department";
   connection.query(query, function (err, res) {
     console.log(`DEPARTMENT:`);
     res.forEach((department) => {
-      console.log(`ID: ${department.department_id} | Name: ${department.name}`);
+      console.log(`ID: ${department.department_id} | Name: ${department.names}`);
     });
-    viewRoles();
+    //  choiceDepartment()
   });
 }
 
@@ -87,7 +88,7 @@ function viewRoles() {
         `ID: ${roles.roles_id} | Title: ${roles.title} | Salary: ${roles.salary} | Department ID: ${roles.department_id}`
       );
     });
-    viewEmployee();
+    // choiceDepartment()
   });
 }
 
@@ -100,7 +101,7 @@ function viewEmployee() {
         `ID: ${employee.employee_id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.roles_id} | Manager ID: ${employee.manager_id}`
       );
     });
-    addDept();
+    addDept()
   });
 }
 
