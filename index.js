@@ -154,7 +154,7 @@ function addRole() {
 
       .then(function (answer) {
         const department = answer.department_Name;
-        //   connection.query('SELECT * FROM DEPARTMENT', function(err, res) {
+          connection.query('SELECT * FROM DEPARTMENT', function(err, res) {
 
         if (err) throw err;
         var filteredDept = res.filter(function (res) {
@@ -170,7 +170,7 @@ function addRole() {
         });
         addEmployee();
       });
-    //   })
+      })
   });
 }
 
@@ -307,7 +307,7 @@ async function addEmployee() {
                   [roles],
                   function (err, res) {
                     if (err) throw err;
-                    var rolesId = res[0].id;
+                    var rolesId = res[0].roles_id;
                     var query =
                       "UPDATE employee SET roles_id ? WHERE last_name ?";
                     var values = [roleId, name];
