@@ -3,8 +3,7 @@ const inquirer = require("inquirer");
 const mysql = require("mysql2");
 
 // Connect to database
-const connection = mysql.createConnection(
-  {
+const connection = mysql.createConnection({
     host: "localhost",
     // MySQL username,
     user: "root",
@@ -17,28 +16,24 @@ const connection = mysql.createConnection(
 );
 
 function choiceDepartment() {
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "department",
-        message: "What would you like to do",
-        choices: [
-          "View Departments",
-          "View Roles",
-          "View Employees",
-          "Add Department",
-          "Add Role",
-          "Add Employee",
-          "Update Employee Role",
-          "Stop",
-        ],
-      },
-    ])
-
-      // choiceDepartment()
-
-    .then(function ({ department }) {
+  inquirer.prompt([{
+      type: "list",
+      name: "department",
+      message: "What would you like to do",
+      choices: [
+        "View Departments",
+        "View Roles",
+        "View Employees",
+        "Add Department",
+        "Add Role",
+        "Add Employee",
+        "Update Employee Role",
+        "Stop"
+      ],
+    }, 
+  ]).then(function ({
+      department
+    }) {
       switch (department) {
         case "View Departments":
           viewDept();
@@ -66,8 +61,9 @@ function choiceDepartment() {
           break;
       }
     });
-    // viewDept()
+  viewDept()
 }
+
 function viewDept() {
   var query = "SELECT * FROM department";
   connection.query(query, function (err, res) {
@@ -75,7 +71,7 @@ function viewDept() {
     res.forEach((department) => {
       console.log(`ID: ${department.department_id} | Name: ${department.names}`);
     });
-    //  choiceDepartment()
+  
   });
 }
 
@@ -101,7 +97,7 @@ function viewEmployee() {
         `ID: ${employee.employee_id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.roles_id} | Manager ID: ${employee.manager_id}`
       );
     });
-    addDept()
+    // addDept()
   });
 }
 
@@ -119,17 +115,16 @@ function addDept() {
           `You have added this department: ${answer.department.toUpperCase()}.`
         );
       });
-      addRole();
+      // addRole();
     });
 }
 
 function addRole() {
   connection.query("SELECT * FROM department", function (err, res) {
     if (err) throw err;
-    // console.log(res);
+    console.log(res);
     inquirer
-      .prompt([
-        {
+      .prompt([{
           name: "title",
           type: "input",
           message: "What is the title of the new role?",
@@ -155,22 +150,22 @@ function addRole() {
 
       .then(function (answer) {
         const department = answer.department_Name;
-          connection.query('SELECT * FROM DEPARTMENT', function(err, res) {
+        connection.query('SELECT * FROM DEPARTMENT', function (err, res) {
 
-        if (err) throw err;
-        var filteredDept = res.filter(function (res) {
-          return res.names == department;
+          if (err) throw err;
+          var filteredDept = res.filter(function (res) {
+            return res.names == department;
+          });
+          const id = filteredDept[0].department_id;
+          var query =
+            "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
+          var values = [answer.title, parseInt(answer.salary), id];
+          console.log(values);
+          connection.query(query, values, function (err, res, fields) {
+            console.log(`You have added this role: ${values[0].toUpperCase()}.`);
+          });
+          addEmployee();
         });
-        const id = filteredDept[0].department_id;
-        var query =
-          "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
-        var values = [answer.title, parseInt(answer.salary), id];
-        console.log(values);
-        connection.query(query, values, function (err, res, fields) {
-          console.log(`You have added this role: ${values[0].toUpperCase()}.`);
-        });
-        addEmployee();
-      });
       })
   });
 }
@@ -180,8 +175,7 @@ async function addEmployee() {
     if (err) throw err;
 
     inquirer
-      .prompt([
-        {
+      .prompt([{
           name: "firstName",
           type: "input",
           message: "What is the employee's first name?",
@@ -215,20 +209,18 @@ async function addEmployee() {
           const roleId = filteredRoles[0].roles_id;
           connection.query("SELECT * FROM employee", function (err, res) {
             inquirer
-              .prompt([
-                {
-                  name: "manager",
-                  type: "list",
-                  message: "Who is your manager?",
-                  choices: function () {
-                    managersArray = [];
-                    res.forEach((res) => {
-                      managersArray.push(res.last_name);
-                    });
-                    return managersArray;
-                  },
+              .prompt([{
+                name: "manager",
+                type: "list",
+                message: "Who is your manager?",
+                choices: function () {
+                  managersArray = [];
+                  res.forEach((res) => {
+                    managersArray.push(res.last_name);
+                  });
+                  return managersArray;
                 },
-              ])
+              }, ])
               .then(function (managerAnswer) {
                 const manager = managerAnswer.manager;
                 connection.query("SELECT * FROM employee", function (err, res) {
@@ -265,20 +257,18 @@ async function addEmployee() {
     connection.query("SELECT * FROM employee", function (err, result) {
       if (err) throw err;
       inquirer
-        .prompt([
-          {
-            name: "employeeName",
-            type: "list",
-            message: "Add employee role",
-            choices: function () {
-              employeeArray = [];
-              result.forEach((result) => {
-                employeeArray.push(result.last_name);
-              });
-              return employeeArray;
-            },
+        .prompt([{
+          name: "employeeName",
+          type: "list",
+          message: "Add employee role",
+          choices: function () {
+            employeeArray = [];
+            result.forEach((result) => {
+              employeeArray.push(result.last_name);
+            });
+            return employeeArray;
           },
-        ])
+        }, ])
 
         .then(function (answer) {
           console.log(answer);
@@ -286,20 +276,18 @@ async function addEmployee() {
 
           connection.query("SELECT * FROM roles", function (err, res) {
             inquirer
-              .prompt([
-                {
-                  name: "roles",
-                  type: "list",
-                  message: "What is their new roles?",
-                  choices: function () {
-                    rolesArray = [];
-                    res.forEach((res) => {
-                      rolesArray.push(res.title);
-                    });
-                    return rolesArray;
-                  },
+              .prompt([{
+                name: "roles",
+                type: "list",
+                message: "What is their new roles?",
+                choices: function () {
+                  rolesArray = [];
+                  res.forEach((res) => {
+                    rolesArray.push(res.title);
+                  });
+                  return rolesArray;
                 },
-              ])
+              }, ])
               .then(function (rolesAnswer) {
                 const roles = rolesAnswer.role;
                 console.log(rolesAnswer.role);
@@ -311,18 +299,18 @@ async function addEmployee() {
                     var rolesId = res[0].roles_id;
                     var query =
                       "UPDATE employee SET roles_id ? WHERE last_name ?";
-                    var values = [roleId, name];
+                    var values = [roleId, names];
                     console.log(values);
                     connection.query(
                       query,
                       values,
                       function (err, res, fields) {
                         console.log(
-                          `You have updated ${name}'s role to ${roles}.`
+                          `You have updated ${names}'s role to ${roles}.`
                         );
                       }
                     );
-                    stop();
+                    // stop();
                   }
                 );
               });
