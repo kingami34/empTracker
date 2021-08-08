@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
     database: "employee_db",
   },
 
-  console.log("Start the employee game.")
+  console.log("Start the employee or.")
 );
 
 function choiceDepartment() {
@@ -73,6 +73,7 @@ function viewDept() {
     });
   
   });
+  viewRoles()
 }
 
 function viewRoles() {
@@ -84,7 +85,7 @@ function viewRoles() {
         `ID: ${roles.roles_id} | Title: ${roles.title} | Salary: ${roles.salary} | Department ID: ${roles.department_id}`
       );
     });
-    // choiceDepartment()
+    viewEmployee()
   });
 }
 
@@ -97,13 +98,12 @@ function viewEmployee() {
         `ID: ${employee.employee_id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.roles_id} | Manager ID: ${employee.manager_id}`
       );
     });
-    // addDept()
+    addDept()
   });
 }
 
 function addDept() {
-  inquirer
-    .prompt({
+  inquirer.prompt({
       name: "department",
       type: "input",
       message: "What is the name of the new department?",
@@ -115,7 +115,7 @@ function addDept() {
           `You have added this department: ${answer.department.toUpperCase()}.`
         );
       });
-      // addRole();
+      addRole();
     });
 }
 
@@ -123,8 +123,7 @@ function addRole() {
   connection.query("SELECT * FROM department", function (err, res) {
     if (err) throw err;
     console.log(res);
-    inquirer
-      .prompt([{
+    inquirer.prompt([{
           name: "title",
           type: "input",
           message: "What is the title of the new role?",
@@ -146,9 +145,7 @@ function addRole() {
             return choicesArray;
           },
         },
-      ])
-
-      .then(function (answer) {
+      ]).then(function (answer) {
         const department = answer.department_Name;
         connection.query('SELECT * FROM DEPARTMENT', function (err, res) {
 
@@ -174,8 +171,7 @@ async function addEmployee() {
   connection.query("SELECT * FROM roles", function (err, res) {
     if (err) throw err;
 
-    inquirer
-      .prompt([{
+    inquirer.prompt([{
           name: "firstName",
           type: "input",
           message: "What is the employee's first name?",
@@ -197,8 +193,7 @@ async function addEmployee() {
             return rolesArray;
           },
         },
-      ])
-      .then(function (answer) {
+      ]).then(function (answer) {
         console.log(answer);
         const role = answer.rolesName;
         connection.query("SELECT * FROM roles", function (err, res) {
@@ -220,8 +215,8 @@ async function addEmployee() {
                   });
                   return managersArray;
                 },
-              }, ])
-              .then(function (managerAnswer) {
+              }, 
+            ]).then(function (managerAnswer) {
                 const manager = managerAnswer.manager;
                 connection.query("SELECT * FROM employee", function (err, res) {
                   if (err) throw err;
@@ -268,9 +263,8 @@ async function addEmployee() {
             });
             return employeeArray;
           },
-        }, ])
-
-        .then(function (answer) {
+        }, 
+      ]).then(function (answer) {
           console.log(answer);
           const name = answer.employeeName;
 
@@ -287,8 +281,8 @@ async function addEmployee() {
                   });
                   return rolesArray;
                 },
-              }, ])
-              .then(function (rolesAnswer) {
+              }, 
+            ]).then(function (rolesAnswer) {
                 const roles = rolesAnswer.role;
                 console.log(rolesAnswer.role);
                 connection.query(
