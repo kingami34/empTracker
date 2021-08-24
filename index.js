@@ -61,31 +61,32 @@ function choiceDepartment() {
           break;
       }
     });
-  viewDept()
 }
 
 function viewDept() {
   var query = "SELECT * FROM department";
   connection.query(query, function (err, res) {
     console.log(`DEPARTMENT:`);
+    console.table(res);
     res.forEach((department) => {
       console.log(`ID: ${department.department_id} | Name: ${department.names}`);
     });
-  
+    choiceDepartment()
   });
-  viewRoles()
+
 }
 
 function viewRoles() {
   var query = "SELECT * FROM roles";
   connection.query(query, function (err, res) {
     console.log(`ROLES:`);
+    console.table(res);
     res.forEach((roles) => {
       console.log(
         `ID: ${roles.roles_id} | Title: ${roles.title} | Salary: ${roles.salary} | Department ID: ${roles.department_id}`
       );
     });
-    viewEmployee()
+    choiceDepartment()
   });
 }
 
@@ -93,12 +94,13 @@ function viewEmployee() {
   var query = "SELECT * FROM employee";
   connection.query(query, function (err, res) {
     console.log(`EMPLOYEE:`);
+    console.table(res);
     res.forEach((employee) => {
       console.log(
         `ID: ${employee.employee_id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.roles_id} | Manager ID: ${employee.manager_id}`
       );
     });
-    addDept()
+    choiceDepartment()
   });
 }
 
@@ -114,8 +116,9 @@ function addDept() {
         console.log(
           `You have added this department: ${answer.department.toUpperCase()}.`
         );
+        console.table(res);
       });
-      addRole();
+      choiceDepartment()
     });
 }
 
@@ -158,10 +161,11 @@ function addRole() {
             "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
           var values = [answer.title, parseInt(answer.salary), id];
           console.log(values);
+          console.table(res);
           connection.query(query, values, function (err, res, fields) {
             console.log(`You have added this role: ${values[0].toUpperCase()}.`);
           });
-          addEmployee();
+          choiceDepartment()
         });
       })
   });
@@ -195,6 +199,7 @@ async function addEmployee() {
         },
       ]).then(function (answer) {
         console.log(answer);
+        console.table(res);
         const role = answer.rolesName;
         connection.query("SELECT * FROM roles", function (err, res) {
           if (err) throw err;
@@ -225,6 +230,7 @@ async function addEmployee() {
                   });
                   const managerId = filteredManager[0].manager_id;
                   console.log(managerAnswer);
+                  console.table(res);
                   var query =
                     "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
                   const values = [
@@ -234,6 +240,7 @@ async function addEmployee() {
                     manager_id,
                   ];
                   console.log(values);
+                  console.table(res);
                   connection.query(query, values, function (err, res, fields) {
                     console.log(
                       `You have added this employee: ${values[0].toUpperCase()}.`
@@ -246,7 +253,7 @@ async function addEmployee() {
         });
       });
   });
-  updateRole();
+  choiceDepartment()
 
   function updateRole() {
     connection.query("SELECT * FROM employee", function (err, result) {
@@ -266,6 +273,7 @@ async function addEmployee() {
         }, 
       ]).then(function (answer) {
           console.log(answer);
+          console.table(res);
           const name = answer.employeeName;
 
           connection.query("SELECT * FROM roles", function (err, res) {

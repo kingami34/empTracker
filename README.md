@@ -26,7 +26,7 @@
 
 ## Usage
 
-   ![README](./Assets/EmpTracker.png)
+   ![README](./Assets/EmpTracker.jpg)
 
   ![README](./Assets/displayEmp.PNG)
 
