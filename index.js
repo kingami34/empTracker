@@ -246,16 +246,16 @@ async function addEmployee() {
                       `You have added this employee: ${values[0].toUpperCase()}.`
                     );
                   });
-                  // viewEmployees();
+                  choiceDepartment()
                 });
               });
           });
         });
       });
   });
-  choiceDepartment()
+  
 
-  function updateRole() {
+  function  updateRole () {
     connection.query("SELECT * FROM employee", function (err, result) {
       if (err) throw err;
       inquirer
@@ -312,7 +312,7 @@ async function addEmployee() {
                         );
                       }
                     );
-                    // stop();
+                   
                   }
                 );
               });
@@ -321,4 +321,4 @@ async function addEmployee() {
     });
   }
 }
-choiceDepartment();
+choiceDepartment()
