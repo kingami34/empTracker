@@ -116,7 +116,7 @@ function addDept() {
         console.log(
           `You have added this department: ${answer.department.toUpperCase()}.`
         );
-        console.table(res);
+        // console.table(res);
       });
       choiceDepartment()
     });
@@ -165,7 +165,7 @@ function addRole() {
           connection.query(query, values, function (err, res, fields) {
             console.log(`You have added this role: ${values[0].toUpperCase()}.`);
           });
-          choiceDepartment()
+          viewRoles()
         });
       })
   });
@@ -246,7 +246,7 @@ async function addEmployee() {
                       `You have added this employee: ${values[0].toUpperCase()}.`
                     );
                   });
-                  choiceDepartment()
+                  viewEmployee()
                 });
               });
           });
@@ -274,7 +274,7 @@ async function addEmployee() {
         }, 
       ]).then(function (answer) {
           console.log(answer);
-          console.table(res);
+          // console.table(res);
           const name = answer.employeeName;
 
           connection.query("SELECT * FROM roles", function (err, res) {
@@ -313,7 +313,7 @@ async function addEmployee() {
                         );
                       }
                     );
-                   
+                    viewRoles()
                   }
                 );
               });
@@ -321,5 +321,5 @@ async function addEmployee() {
         });
     });
   }
+  choiceDepartment()
 
-choiceDepartment()
