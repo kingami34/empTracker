@@ -253,6 +253,7 @@ async function addEmployee() {
         });
       });
   });
+}
   
 
   function  updateRole () {
@@ -320,5 +321,5 @@ async function addEmployee() {
         });
     });
   }
-}
+
 choiceDepartment()
