@@ -116,7 +116,7 @@ function addDept() {
         console.log(
           `You have added this department: ${answer.department.toUpperCase()}.`
         );
-        // console.table(res);
+        console.table(res);
       });
       choiceDepartment()
     });
@@ -150,7 +150,7 @@ function addRole() {
         },
       ]).then(function (answer) {
         const department = answer.department_Name;
-        connection.query('SELECT * FROM DEPARTMENT', function (err, res) {
+        connection.query('SELECT * department', function (err, res) {
 
           if (err) throw err;
           var filteredDept = res.filter(function (res) {
@@ -313,7 +313,7 @@ async function addEmployee() {
                         );
                       }
                     );
-                    viewRoles()
+                    // viewRoles()
                   }
                 );
               });
