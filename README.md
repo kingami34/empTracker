@@ -28,7 +28,7 @@
 
    ![README](./Assets/EmpTracker.jpg)
 
-  ![README](./Assets/displayEmp.PNG)
+  ![README](./Assets/Empdisplay.PNG)
 
 
 ## License
